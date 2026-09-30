@@ -1,23 +1,28 @@
 @import "tailwindcss";
 
-:root {
-  --background: #0b0f19;
-  --foreground: #e6e9f0;
-  --muted: #94a3b8;
-  --card: #111827;
-  --border: #1f2937;
-  --accent: #38bdf8;
-  --accent-2: #a78bfa;
+@theme static {
+  --color-background: #0b0f19;
+  --color-foreground: #e6e9f0;
+  --color-muted: #94a3b8;
+  --color-card: #111827;
+  --color-border: #1f2937;
+  --color-accent: #38bdf8;
+  --color-accent-2: #a78bfa;
+
+  --animate-marquee: marquee 35s linear infinite;
+  --animate-blink: blink 1s step-end infinite;
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-muted: var(--muted);
-  --color-card: var(--card);
-  --color-border: var(--border);
-  --color-accent: var(--accent);
-  --color-accent-2: var(--accent-2);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -28,32 +33,18 @@ html {
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--color-background);
+  color: var(--color-foreground);
   font-family: var(--font-sans), system-ui, sans-serif;
 }
 
 ::selection {
-  background: var(--accent);
-  color: var(--background);
+  background: var(--color-accent);
+  color: var(--color-background);
 }
 
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-.animate-marquee {
-  animation: marquee 35s linear infinite;
-}
 .marquee:hover .animate-marquee {
   animation-play-state: paused;
-}
-
-@keyframes blink {
-  50% { opacity: 0; }
-}
-.animate-blink {
-  animation: blink 1s step-end infinite;
 }
 
 .bg-grid {
@@ -65,8 +56,21 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
   .animate-marquee,
   .animate-blink {
     animation: none;
+  }
+
+  .marquee {
+    overflow-x: auto;
+    scrollbar-width: thin;
+  }
+
+  .marquee ul[aria-hidden="true"] {
+    display: none;
   }
 }

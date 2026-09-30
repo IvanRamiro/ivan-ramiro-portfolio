@@ -1,12 +1,10 @@
-export default function SectionHeading({
-  label,
-  title,
-  subtitle,
-}: {
+type SectionHeadingProps = {
   label: string;
   title: string;
   subtitle?: string;
-}) {
+};
+
+export default function SectionHeading({ label, title, subtitle }: SectionHeadingProps) {
   return (
     <div>
       <p className="font-mono text-sm text-accent">{label}</p>
