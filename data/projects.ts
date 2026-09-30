@@ -14,26 +14,29 @@ export type Project = {
 };
 
 export const projects: Project[] = [
+
   {
-    slug: "sample-project-one",
-    title: "Sample Project One",
-    summary: "One-line description of what this project does.",
-    role: "Full-stack developer",
-    stack: ["Next.js", "TypeScript", "Tailwind"],
-    image: "/projects/sample-1.png",
-    repoUrl: "https://github.com/IvanRamiro/my-portfolio",
-    problem: "Who needed this and what was painful about it.",
-    solution: "What you built and the key features.",
-    results: "Any numbers or outcomes, or delete this line.",
+    slug: "vr-science-laboratory",
+    title: "VR Learning Simulation for High School Science Labs",
+    summary: "An immersive VR environment for safely practicing lab activities.",
+    role: "Thesis project (team)",
+    stack: ["C#", "Unity"],
+    image: "/projects/scivrs.png",
+    problem:
+      "High school science labs are limited by equipment, safety risks, and cost, so students get little hands-on practice.",
+    solution:
+      "We built an interactive VR platform with 3D interaction and performance scoring, and tested it for accuracy, efficiency, and compatibility against real engineering constraints.",
   },
   {
-    slug: "sample-project-two",
-    title: "Sample Project Two",
-    summary: "Another one-line description.",
-    role: "Mobile developer",
-    stack: ["React Native", "Firebase"],
-    image: "/projects/sample-2.png",
-    problem: "Placeholder problem statement.",
-    solution: "Placeholder solution.",
+    slug: "developer-portfolio",
+    title: "This Portfolio",
+    summary: "The site you're looking at, with a working inquiry form.",
+    role: "Design and development",
+    stack: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
+    image: "/projects/webportfolio.png",
+    repoUrl: "https://github.com/IvanRamiro/my-portfolio",
+    problem: "I needed a place to present my work and let clients reach me directly.",
+    solution:
+      "A dark-themed responsive site with animated sections and a server-side contact form that emails inquiries straight to my inbox.",
   },
 ];

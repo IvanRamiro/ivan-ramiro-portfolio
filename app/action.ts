@@ -1,4 +1,3 @@
-// app/action.ts
 "use server";
 
 import { Resend } from "resend";
@@ -19,7 +18,6 @@ export async function sendInquiry(
   const message = String(formData.get("message") ?? "").trim();
   const honeypot = String(formData.get("company") ?? "");
 
-  // Bots fill hidden fields; pretend success and do nothing
   if (honeypot) return { ok: true, message: "Thanks! I'll get back to you soon." };
 
   if (!name || !email || !message) {

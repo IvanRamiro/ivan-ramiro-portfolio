@@ -1,6 +1,14 @@
 import Typewriter from "./Typewriter";
 
-const roles = ["Web Apps", "Mobile Apps", "IoT Systems", "Custom Platforms"];
+const roles = [
+  "Web Apps",
+  "Mobile Apps",
+  "IoT Systems",
+  "Custom Platforms",
+  "Admin Dashboards",
+  "VR Experiences",
+  "API Integrations",
+];
 
 export default function Hero() {
   return (

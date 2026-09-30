@@ -1,4 +1,4 @@
-import { FiGlobe, FiSmartphone, FiLayout, FiCpu } from "react-icons/fi";
+import { FiGlobe, FiSmartphone, FiLayout, FiCpu, FiBox, FiWifi } from "react-icons/fi";
 import Reveal from "./Reveal";
 import SectionHeading from "./SectionHeading";
 
@@ -22,6 +22,16 @@ const services = [
     Icon: FiCpu,
     title: "IoT and embedded prototypes",
     desc: "Connecting sensors and devices to apps that display and act on the data.",
+  },
+    {
+    Icon: FiBox,
+    title: "VR and 3D simulations",
+    desc: "Interactive training and learning experiences built with Unity.",
+  },
+  {
+    Icon: FiWifi,
+    title: "Network setup and IT support",
+    desc: "Small office networking, configuration, and troubleshooting.",
   },
 ];
 

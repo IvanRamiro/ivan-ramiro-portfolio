@@ -2,6 +2,8 @@ import {
   SiReact, SiNextdotjs, SiTypescript, SiJavascript, SiPython,
   SiTailwindcss, SiNodedotjs, SiPostgresql, SiFlutter, SiFirebase,
   SiGit, SiArduino, SiCplusplus, SiLinux, SiFigma, SiHtml5,
+  SiPhp, SiMysql, SiBootstrap, SiUnity, SiBlender,
+  SiDocker, SiPostman, SiGithub,
 } from "react-icons/si";
 
 const techs = [
@@ -21,10 +23,18 @@ const techs = [
   { name: "Git", Icon: SiGit },
   { name: "Linux", Icon: SiLinux },
   { name: "Figma", Icon: SiFigma },
+  { name: "PHP", Icon: SiPhp },
+  { name: "MySQL", Icon: SiMysql },
+  { name: "Bootstrap", Icon: SiBootstrap },
+  { name: "Unity", Icon: SiUnity },
+  { name: "Blender", Icon: SiBlender },
+  { name: "Docker", Icon: SiDocker },
+  { name: "Postman", Icon: SiPostman },
+  { name: "GitHub", Icon: SiGithub },
 ];
 
 export default function TechMarquee() {
-  const items = [...techs, ...techs]; // duplicated so the loop is seamless
+  const items = [...techs, ...techs];
 
   return (
     <div className="marquee overflow-hidden border-y border-border bg-card/40 py-5 [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">

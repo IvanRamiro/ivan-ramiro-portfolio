@@ -38,7 +38,6 @@ body {
   color: var(--background);
 }
 
-/* Infinite scrolling tech strip */
 @keyframes marquee {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
@@ -50,7 +49,6 @@ body {
   animation-play-state: paused;
 }
 
-/* Blinking cursor for the typing effect */
 @keyframes blink {
   50% { opacity: 0; }
 }
@@ -58,7 +56,6 @@ body {
   animation: blink 1s step-end infinite;
 }
 
-/* Subtle grid behind the hero */
 .bg-grid {
   background-image:
     linear-gradient(to right, rgb(255 255 255 / 0.04) 1px, transparent 1px),
