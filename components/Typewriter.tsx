@@ -2,31 +2,39 @@
 
 import { useEffect, useState } from "react";
 
+const TYPING_DELAY_MS = 90;
+const DELETING_DELAY_MS = 40;
+const PAUSE_ON_WORD_MS = 1500;
+
 export default function Typewriter({ words }: { words: string[] }) {
-  const [index, setIndex] = useState(0);
+  const [wordIndex, setWordIndex] = useState(0);
   const [text, setText] = useState("");
-  const [deleting, setDeleting] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
-    const word = words[index];
-    let delay = deleting ? 40 : 90;
-    if (!deleting && text === word) delay = 1500; // pause on the full word
+    const word = words[wordIndex];
+    if (!word) return;
+
+    const isWordComplete = text === word;
+    const isWordEmpty = text === "";
+
+    let delay = isDeleting ? DELETING_DELAY_MS : TYPING_DELAY_MS;
+    if (!isDeleting && isWordComplete) delay = PAUSE_ON_WORD_MS;
 
     const timer = setTimeout(() => {
-      if (!deleting && text === word) {
-        setDeleting(true);
-      } else if (deleting && text === "") {
-        setDeleting(false);
-        setIndex((index + 1) % words.length);
+      if (!isDeleting && isWordComplete) {
+        setIsDeleting(true);
+      } else if (isDeleting && isWordEmpty) {
+        setIsDeleting(false);
+        setWordIndex((current) => (current + 1) % words.length);
       } else {
-        setText(
-          deleting ? word.slice(0, text.length - 1) : word.slice(0, text.length + 1)
-        );
+        const nextLength = text.length + (isDeleting ? -1 : 1);
+        setText(word.slice(0, nextLength));
       }
     }, delay);
 
     return () => clearTimeout(timer);
-  }, [text, deleting, index, words]);
+  }, [text, isDeleting, wordIndex, words]);
 
   return <>{text}</>;
 }

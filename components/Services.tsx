@@ -1,39 +1,61 @@
-import { FiGlobe, FiSmartphone, FiLayout, FiCpu, FiBox, FiWifi } from "react-icons/fi";
+import type { IconType } from "react-icons";
+import { FiBox, FiCpu, FiGlobe, FiLayout, FiSmartphone, FiWifi } from "react-icons/fi";
 import Reveal from "./Reveal";
 import SectionHeading from "./SectionHeading";
 
-const services = [
+type Service = {
+  Icon: IconType;
+  title: string;
+  description: string;
+};
+
+const services: Service[] = [
   {
     Icon: FiGlobe,
     title: "Website development",
-    desc: "Fast, mobile-friendly websites for businesses, organizations, and personal brands.",
+    description:
+      "Fast, mobile-friendly websites for businesses, organizations, and personal brands.",
   },
   {
     Icon: FiSmartphone,
     title: "Mobile app development",
-    desc: "Cross-platform apps for Android and iOS, from prototype to release.",
+    description: "Cross-platform apps for Android and iOS, from prototype to release.",
   },
   {
     Icon: FiLayout,
     title: "Custom web platforms",
-    desc: "Dashboards, booking systems, and inventory tools tailored to how you work.",
+    description:
+      "Dashboards, booking systems, and inventory tools tailored to how you work.",
   },
   {
     Icon: FiCpu,
     title: "IoT and embedded prototypes",
-    desc: "Connecting sensors and devices to apps that display and act on the data.",
+    description:
+      "Connecting sensors and devices to apps that display and act on the data.",
   },
-    {
+  {
     Icon: FiBox,
     title: "VR and 3D simulations",
-    desc: "Interactive training and learning experiences built with Unity.",
+    description: "Interactive training and learning experiences built with Unity.",
   },
   {
     Icon: FiWifi,
     title: "Network setup and IT support",
-    desc: "Small office networking, configuration, and troubleshooting.",
+    description: "Small office networking, configuration, and troubleshooting.",
   },
 ];
+
+function ServiceCard({ Icon, title, description }: Service) {
+  return (
+    <div className="h-full rounded-2xl border border-border bg-card p-6 transition hover:border-accent/60">
+      <div className="flex size-11 items-center justify-center rounded-lg bg-accent/10 text-xl text-accent">
+        <Icon aria-hidden="true" />
+      </div>
+      <h3 className="mt-5 text-lg font-semibold">{title}</h3>
+      <p className="mt-2 text-sm text-muted">{description}</p>
+    </div>
+  );
+}
 
 export default function Services() {
   return (
@@ -46,19 +68,15 @@ export default function Services() {
         />
       </Reveal>
 
-      <div className="mt-10 grid gap-6 sm:grid-cols-2">
-        {services.map(({ Icon, title, desc }, i) => (
-          <Reveal key={title} delay={i * 0.08}>
-            <div className="h-full rounded-2xl border border-border bg-card p-6 transition hover:border-accent/60">
-              <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-accent/10 text-xl text-accent">
-                <Icon />
-              </div>
-              <h3 className="mt-5 text-lg font-semibold">{title}</h3>
-              <p className="mt-2 text-sm text-muted">{desc}</p>
-            </div>
-          </Reveal>
+      <ul className="mt-10 grid gap-6 sm:grid-cols-2">
+        {services.map((service, index) => (
+          <li key={service.title}>
+            <Reveal delay={index * 0.08} className="h-full">
+              <ServiceCard {...service} />
+            </Reveal>
+          </li>
         ))}
-      </div>
+      </ul>
     </section>
   );
 }
