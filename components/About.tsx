@@ -13,8 +13,29 @@ const bio = [
 ];
 
 const skills: Record<string, string[]> = {
-  Frontend: ["React", "Next.js", "TypeScript", "Tailwind CSS", "HTML5", "CSS3", "JavaScript", "Bootstrap"],
-  Backend: ["Node.js", "PostgreSQL", "REST APIs", "PHP", "MySQL"],
+  Frontend: [
+    "React",
+    "Next.js",
+    "TypeScript",
+    "Tailwind CSS",
+    "Framer Motion",
+    "HTML5",
+    "CSS3",
+    "JavaScript",
+    "Bootstrap",
+  ],
+  Backend: [
+    "Node.js",
+    "PostgreSQL",
+    "Neon",
+    "Drizzle ORM",
+    "Server Actions",
+    "Zod",
+    "Resend",
+    "REST APIs",
+    "PHP",
+    "MySQL",
+  ],
   Mobile: ["React Native", "Flutter"],
   "DevOps & Networking": ["Docker", "VMware", "Postman", "Cisco", "OSPF / VPN", "Python"],
   "3D & Design": ["Unity", "C#", "Blender", "Photoshop", "Canva"],

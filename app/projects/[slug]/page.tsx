@@ -23,8 +23,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!project) return {};
 
   return {
-    title: `${project.title} | Ivan Ramiro`,
+    title: project.title,
     description: project.summary,
+    openGraph: { title: project.title, description: project.summary },
   };
 }
 
@@ -44,7 +45,7 @@ export default async function ProjectPage({ params }: PageProps) {
   const { title, summary, role, image, stack, links } = project;
 
   return (
-    <main className="mx-auto max-w-3xl px-6 py-16">
+    <div className="mx-auto max-w-3xl px-6 py-16">
       <Link
         href="/#projects"
         className="font-mono text-sm text-muted transition hover:text-accent"
@@ -78,10 +79,10 @@ export default async function ProjectPage({ params }: PageProps) {
       </ul>
 
       <div className="mt-12 space-y-10">
-        {getSections(project).map(({ title, body }) => (
-          <section key={title}>
-            <h2 className="text-xl font-semibold">{title}</h2>
-            <p className="mt-3 leading-relaxed text-muted">{body}</p>
+        {getSections(project).map((section) => (
+          <section key={section.title}>
+            <h2 className="text-xl font-semibold">{section.title}</h2>
+            <p className="mt-3 leading-relaxed text-muted">{section.body}</p>
           </section>
         ))}
       </div>
@@ -101,6 +102,6 @@ export default async function ProjectPage({ params }: PageProps) {
           ))}
         </div>
       )}
-    </main>
+    </div>
   );
 }
