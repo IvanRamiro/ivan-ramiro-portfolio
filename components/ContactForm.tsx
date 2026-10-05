@@ -10,7 +10,6 @@ const inputStyles =
   "mt-1 w-full rounded-lg border border-border bg-card px-4 py-3 text-foreground outline-none transition placeholder:text-muted/60 focus:border-accent focus:ring-2 focus:ring-accent/30";
 
 type FieldProps = {
-  
   name: string;
   label: string;
   placeholder: string;

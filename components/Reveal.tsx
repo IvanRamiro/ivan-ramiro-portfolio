@@ -17,7 +17,6 @@ export default function Reveal({ children, delay = 0, className }: RevealProps) 
 
   return (
     <motion.div
-      // Users who turned off animations at the OS level just see the content
       initial={prefersReducedMotion ? false : { opacity: 0, y: OFFSET_Y }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
