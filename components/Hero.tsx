@@ -1,7 +1,8 @@
-import { Fragment } from "react";
+import HeroCard from "./HeroCard";
 import Typewriter from "./Typewriter";
 
 const NAME = "Ivan Ramiro";
+const ROLE = "Computer Engineer";
 
 const roles = [
   "Web Apps",
@@ -13,67 +14,10 @@ const roles = [
   "API Integrations",
 ];
 
-const profile = {
-  role: "Computer Engineer",
-  stack: ["React", "TypeScript", "Node.js"],
-  focus: "Web & Mobile Apps",
-  openToWork: true,
-};
-
 const primaryButton =
   "rounded-lg bg-accent px-6 py-3 font-semibold text-background transition hover:opacity-90";
 const secondaryButton =
   "rounded-lg border border-border px-6 py-3 transition hover:border-accent hover:text-accent";
-
-const windowDots = ["bg-red-500/80", "bg-yellow-500/80", "bg-green-500/80"];
-
-function Str({ children }: { children: string }) {
-  return <span className="text-emerald-400">&quot;{children}&quot;</span>;
-}
-
-function CodeCard() {
-  return (
-    <div
-      aria-hidden="true"
-      className="rounded-xl border border-border bg-card/80 shadow-2xl shadow-accent/10 backdrop-blur"
-    >
-      <div className="flex items-center gap-2 border-b border-border px-4 py-3">
-        {windowDots.map((color) => (
-          <span key={color} className={`size-3 rounded-full ${color}`} />
-        ))}
-        <span className="ml-3 font-mono text-xs text-muted">ivan.ts</span>
-      </div>
-
-      <div className="overflow-x-auto p-5 font-mono text-sm leading-7">
-        <div>
-          <span className="text-accent-2">const</span>{" "}
-          <span className="text-accent">ivan</span> {"= {"}
-        </div>
-        <div className="pl-6">
-          role: <Str>{profile.role}</Str>,
-        </div>
-        <div className="pl-6">
-          stack: [
-          {profile.stack.map((tech, index) => (
-            <Fragment key={tech}>
-              {index > 0 && ", "}
-              <Str>{tech}</Str>
-            </Fragment>
-          ))}
-          ],
-        </div>
-        <div className="pl-6">
-          focus: <Str>{profile.focus}</Str>,
-        </div>
-        <div className="pl-6">
-          openToWork:{" "}
-          <span className="text-accent-2">{String(profile.openToWork)}</span>,
-        </div>
-        <div>{"};"}</div>
-      </div>
-    </div>
-  );
-}
 
 export default function Hero() {
   return (
@@ -95,7 +39,7 @@ export default function Hero() {
           </p>
 
           <h1 className="mt-4 text-4xl font-bold leading-tight tracking-tight sm:text-6xl">
-            {profile.role} building
+            {ROLE} building
             {/* Screen readers get the full list once, not every typed letter */}
             <span className="sr-only">: {roles.join(", ")}</span>
             <span
@@ -122,7 +66,7 @@ export default function Hero() {
           </div>
         </div>
 
-        <CodeCard />
+        <HeroCard />
       </div>
     </section>
   );
