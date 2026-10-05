@@ -181,7 +181,6 @@ export default function HeroCard() {
   const [isFlipped, setIsFlipped] = useState(false);
   const [isAutoFlipping, setIsAutoFlipping] = useState(true);
 
-  // Flip on a timer until the visitor takes control with the button
   useEffect(() => {
     if (!isAutoFlipping || prefersReducedMotion) return;
 

@@ -1,5 +1,6 @@
 import HeroCard from "./HeroCard";
 import Typewriter from "./Typewriter";
+import ViewfinderFrame from "./ViewfinderFrame";
 
 const NAME = "Ivan Ramiro";
 const ROLE = "Computer Engineer";
@@ -66,7 +67,9 @@ export default function Hero() {
           </div>
         </div>
 
-        <HeroCard />
+        <ViewfinderFrame>
+          <HeroCard />
+        </ViewfinderFrame>
       </div>
     </section>
   );
