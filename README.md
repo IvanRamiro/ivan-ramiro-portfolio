@@ -1,38 +1,91 @@
+# Ivan Ramiro | Developer Portfolio
+
 ![CI](https://github.com/IvanRamiro/my-portfolio/actions/workflows/ci.yml/badge.svg)
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+My personal portfolio: an introduction, case studies of my projects, the services I offer, and a contact form that saves and emails every inquiry.
 
-## Getting Started
+## Features
 
-First, run the development server:
+- **Project case studies:** every project in `data/projects.ts` gets its own page, with problem, solution, stack, and links
+- **Animated hero:** typewriter roles and a flip card that switches between code and the platforms I build for
+- **Contact form:** Server Action with Zod validation, a honeypot field, and per-visitor rate limiting
+- **Inquiry storage:** each message is saved to Postgres and emailed to me; the visitor sees an error only if both fail
+- **SEO:** generated Open Graph images, sitemap, robots file, and per-page metadata
+- **Accessibility:** semantic HTML, keyboard-friendly menu, and support for reduced-motion settings
+- **Automated checks:** lint, type check, and Playwright tests run on every push
+
+## Tech stack
+
+| Area | Tools |
+|---|---|
+| Framework | Next.js (App Router), React, TypeScript |
+| Styling and motion | Tailwind CSS, Framer Motion, React Icons |
+| Database | Neon (Postgres), Drizzle ORM |
+| Validation and email | Zod, Resend |
+| Testing and CI | Playwright, GitHub Actions |
+
+## Design decisions
+
+- **Content lives in data files.** Adding a project means adding one object to `data/projects.ts`, with no new page code.
+- **Inquiries are never silently lost.** The form saves to the database and sends the email at the same time, so one failing doesn't lose the message.
+- **Visitor IPs are never stored.** Rate limiting keeps only a salted hash, which is enough to count repeat senders.
+- **Tests avoid side effects.** They check content, navigation, validation, and SEO files, and never send a real inquiry.
+
+## Getting started
+
+Requirements: Node.js 22 and a Neon Postgres database.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/IvanRamiro/my-portfolio.git
+cd my-portfolio
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Create a `.env.local` file in the project root:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+DATABASE_URL=postgresql://user:password@host/dbname?sslmode=require
+RESEND_API_KEY=re_your_key
+CONTACT_EMAIL=you@example.com
+IP_HASH_SALT=a_long_random_string
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Create the database table, then start the dev server:
 
-## Learn More
+```bash
+npm run db:push
+npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+Open [http://localhost:3000](http://localhost:3000).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Scripts
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| Command | What it does |
+|---|---|
+| `npm run dev` | Start the development server |
+| `npm run build` | Create a production build |
+| `npm run start` | Serve the production build |
+| `npm run lint` | Check code quality |
+| `npm run typecheck` | Generate Next.js types and run the TypeScript check |
+| `npm test` | Run the Playwright tests |
+| `npm run test:ui` | Run the tests in Playwright's visual runner |
+| `npm run db:push` | Sync the database schema |
+| `npm run db:studio` | Browse the database in Drizzle Studio |
 
-## Deploy on Vercel
+## Project structure
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+app/            Routes, layout, and the contact form Server Action
+components/     Page sections and reusable UI
+data/           Project content
+db/             Database connection and schema
+lib/            Shared validation rules, rate limiting, and site settings
+public/         Images and the resume
+tests/          Playwright tests
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Contact
+
+[LinkedIn](https://linkedin.com/in/john-ivan-ramiro-782181312) · [GitHub](https://github.com/IvanRamiro) · ivanramiro0127@gmail.com

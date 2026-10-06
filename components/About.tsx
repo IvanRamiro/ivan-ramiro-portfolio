@@ -37,9 +37,9 @@ const skills: Record<string, string[]> = {
     "MySQL",
   ],
   Mobile: ["React Native", "Flutter"],
-  "DevOps & Networking": ["Docker", "VMware", "Postman", "Cisco", "OSPF / VPN", "Python"],
+  "DevOps & Networking": ["Docker", "VMware", "Postman", "Cisco", "OSPF / VPN", "Python", "GitHub Actions", "CI/CD"],
   "3D & Design": ["Unity", "C#", "Blender", "Photoshop", "Canva"],
-  "Engineering & Tools": ["Git", "GitHub", "Arduino / IoT", "Linux", "Figma"],
+  "Engineering & Tools": ["Git", "GitHub", "Arduino / IoT", "Linux", "Figma", "Playwright"],
 };
 
 function SkillGroup({ title, items }: { title: string; items: string[] }) {
