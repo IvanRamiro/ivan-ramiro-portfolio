@@ -10,7 +10,8 @@
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",
     "test": "playwright test",
-    "test:ui": "playwright test --ui"
+    "test:ui": "playwright test --ui",
+    "typecheck": "next typegen && tsc --noEmit"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.2.0",
