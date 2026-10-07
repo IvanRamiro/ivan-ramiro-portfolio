@@ -11,7 +11,7 @@ const LINE_DELAY_S = 0.12;
 const profile = {
   role: "Computer Engineer",
   stack: ["Next.js", "TypeScript", "PostgreSQL", "PHP", "Unity"],
-  focus: "Web, Mobile & VR",
+  focus: "Web, Mobile & Game Development",
   openToWork: true,
 };
 
