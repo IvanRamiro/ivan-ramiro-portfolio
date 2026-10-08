@@ -1,29 +1,50 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
-import type { ReactNode } from "react";
+import { useRef, type ReactNode } from "react";
+import { gsap, prefersReducedMotion, useGSAP } from "@/lib/gsap";
+
+const OFFSET_Y = 40;
+const DURATION_S = 0.9;
+const STAGGER_S = 0.1;
 
 type RevealProps = {
   children: ReactNode;
-  delay?: number;
   className?: string;
+  delay?: number;
+  /** Animate each direct child in sequence instead of the wrapper itself */
+  stagger?: boolean;
 };
 
-const OFFSET_Y = 24;
-const DURATION_S = 0.6;
+export default function Reveal({
+  children,
+  className,
+  delay = 0,
+  stagger = false,
+}: RevealProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
 
-export default function Reveal({ children, delay = 0, className }: RevealProps) {
-  const prefersReducedMotion = useReducedMotion();
+  useGSAP(
+    () => {
+      const container = containerRef.current;
+      if (!container || prefersReducedMotion()) return;
+
+      // Opacity only (not visibility), so the content stays available to screen readers
+      gsap.from(stagger ? Array.from(container.children) : container, {
+        opacity: 0,
+        y: OFFSET_Y,
+        duration: DURATION_S,
+        delay,
+        ease: "power3.out",
+        stagger: stagger ? STAGGER_S : 0,
+        scrollTrigger: { trigger: container, start: "top 85%", once: true },
+      });
+    },
+    { scope: containerRef, dependencies: [stagger, delay] }
+  );
 
   return (
-    <motion.div
-      initial={prefersReducedMotion ? false : { opacity: 0, y: OFFSET_Y }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: DURATION_S, delay, ease: "easeOut" }}
-      className={className}
-    >
+    <div ref={containerRef} className={className}>
       {children}
-    </motion.div>
+    </div>
   );
 }

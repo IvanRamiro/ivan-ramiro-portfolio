@@ -14,13 +14,11 @@ export default function Projects() {
         />
       </Reveal>
 
-      <div className="mt-10 grid gap-6 md:grid-cols-2">
-        {projects.map((project, index) => (
-          <Reveal key={project.slug} delay={index * 0.1}>
-            <ProjectCard project={project} />
-          </Reveal>
+      <Reveal stagger className="mt-12 grid gap-6 md:grid-cols-2">
+        {projects.map((project) => (
+          <ProjectCard key={project.slug} project={project} />
         ))}
-      </div>
+      </Reveal>
     </section>
   );
 }

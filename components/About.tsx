@@ -1,4 +1,7 @@
-import Image from "next/image";
+import Journey from "./Journey";
+import GlassCard from "./GlassCard";
+import Magnetic from "./Magnetic";
+import ProfilePhoto from "./ProfilePhoto";
 import Reveal from "./Reveal";
 import SectionHeading from "./SectionHeading";
 
@@ -19,6 +22,7 @@ const skills: Record<string, string[]> = {
     "TypeScript",
     "Tailwind CSS",
     "Framer Motion",
+    "GSAP",
     "HTML5",
     "CSS3",
     "JavaScript",
@@ -37,26 +41,34 @@ const skills: Record<string, string[]> = {
     "MySQL",
   ],
   Mobile: ["React Native", "Flutter"],
-  "DevOps & Networking": ["Docker", "VMware", "Postman", "Cisco", "OSPF / VPN", "Python", "GitHub Actions", "CI/CD"],
+  "DevOps & Networking": [
+    "Docker",
+    "VMware",
+    "Postman",
+    "Cisco",
+    "OSPF / VPN",
+    "Python",
+    "GitHub Actions",
+  ],
   "3D & Design": ["Unity", "C#", "Blender", "Photoshop", "Canva"],
-  "Engineering & Tools": ["Git", "GitHub", "Arduino / IoT", "Linux", "Figma", "Playwright"],
+  "Engineering & Tools": ["Git", "GitHub", "Playwright", "Arduino / IoT", "Linux", "Figma"],
 };
 
 function SkillGroup({ title, items }: { title: string; items: string[] }) {
   return (
-    <div>
+    <GlassCard className="h-full p-5">
       <h3 className="font-semibold">{title}</h3>
       <ul className="mt-3 flex flex-wrap gap-2">
         {items.map((item) => (
           <li
             key={item}
-            className="rounded-md border border-border bg-card px-3 py-1 font-mono text-xs text-muted"
+            className="rounded-md border border-white/10 bg-background/60 px-3 py-1 font-mono text-xs text-muted transition hover:-translate-y-0.5 hover:border-accent/60 hover:text-accent"
           >
             {item}
           </li>
         ))}
       </ul>
-    </div>
+    </GlassCard>
   );
 }
 
@@ -67,41 +79,35 @@ export default function About() {
         <SectionHeading label="// 01 about" title="A bit about me" />
       </Reveal>
 
-      <div className="mt-10 grid gap-12 lg:grid-cols-2">
-        <Reveal className="space-y-4 text-muted">
-          <div className="relative mb-2 w-fit">
-            <div
-              aria-hidden="true"
-              className="absolute -inset-1 rounded-2xl bg-linear-to-r from-accent to-accent-2 opacity-40 blur"
-            />
-            <Image
-              src={PROFILE_PHOTO}
-              alt="Portrait of John Ivan Ramiro"
-              width={400}
-              height={400}
-              className="relative size-40 rounded-2xl border border-border object-cover sm:size-48"
-            />
-          </div>
+      <div className="mt-12 grid gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)]">
+        <Reveal stagger className="space-y-5 text-muted">
+          <ProfilePhoto src={PROFILE_PHOTO} alt="Portrait of John Ivan Ramiro" />
 
           {bio.map((paragraph) => (
             <p key={paragraph}>{paragraph}</p>
           ))}
 
-          <a
-            href={RESUME_PATH}
-            download={RESUME_FILENAME}
-            className="mt-4 inline-block rounded-lg border border-border px-5 py-2 text-sm text-foreground transition hover:border-accent hover:text-accent"
-          >
-            Download resume
-          </a>
+          <div>
+            <Magnetic>
+              <a
+                href={RESUME_PATH}
+                download={RESUME_FILENAME}
+                className="inline-block rounded-lg border border-white/15 bg-white/5 px-5 py-2 text-sm text-foreground backdrop-blur transition hover:border-accent hover:text-accent"
+              >
+                Download resume
+              </a>
+            </Magnetic>
+          </div>
         </Reveal>
 
-        <Reveal delay={0.1} className="grid gap-6 sm:grid-cols-2">
+        <Reveal stagger className="grid gap-4 sm:grid-cols-2">
           {Object.entries(skills).map(([category, items]) => (
             <SkillGroup key={category} title={category} items={items} />
           ))}
         </Reveal>
       </div>
+
+      <Journey />
     </section>
   );
 }
