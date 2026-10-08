@@ -21,6 +21,7 @@
   --animate-draw: draw 5s ease-in-out infinite;
   --animate-ring: ring 5s ease-in-out infinite;
   --animate-page-scroll: page-scroll 18s ease-in-out infinite;
+  --animate-slide-in: slide-in 0.3s ease-out both;
 
   @keyframes marquee {
     from { transform: translateX(0); }
@@ -39,6 +40,12 @@
   @keyframes float {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-6px); }
+  }
+
+  /* Hero card code lines entering one after another (delay is set per line) */
+  @keyframes slide-in {
+    from { opacity: 0; transform: translateX(-8px); }
+    to { opacity: 1; transform: translateX(0); }
   }
 
   /* Service mock-ups */
@@ -137,7 +144,8 @@ body {
   .animate-bars,
   .animate-draw,
   .animate-ring,
-  .animate-page-scroll {
+  .animate-page-scroll,
+  .animate-slide-in {
     animation: none;
   }
 

@@ -1,9 +1,13 @@
 import { neon } from "@neondatabase/serverless";
 import { drizzle } from "drizzle-orm/neon-http";
+import { requireEnv } from "@/lib/env";
 import * as schema from "./schema";
 
+/**
+ * Creates a Drizzle client over Neon's HTTP driver. The driver is stateless
+ * (one request per query), so a new instance per call costs nothing and
+ * avoids holding a connection across serverless invocations.
+ */
 export function getDb() {
-  const url = process.env.DATABASE_URL;
-  if (!url) throw new Error("DATABASE_URL is not set");
-  return drizzle({ client: neon(url), schema });
+  return drizzle({ client: neon(requireEnv("DATABASE_URL")), schema });
 }

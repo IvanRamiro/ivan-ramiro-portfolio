@@ -2,22 +2,20 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getProjectBySlug, projects, type Project } from "@/data/projects";
+import Button from "@/components/ui/Button";
+import TagList from "@/components/ui/TagList";
+import {
+  getCaseStudySections,
+  getProjectBySlug,
+  getProjectStaticParams,
+} from "@/data/projects";
+import { EXTERNAL_LINK_PROPS } from "@/lib/site";
 
-type PageProps = {
-  params: Promise<{ slug: string }>;
-};
+type ProjectPageProps = PageProps<"/projects/[slug]">;
 
-const primaryButton =
-  "rounded-lg bg-accent px-6 py-3 font-semibold text-background transition hover:opacity-90";
-const secondaryButton =
-  "rounded-lg border border-border px-6 py-3 transition hover:border-accent hover:text-accent";
+export const generateStaticParams = getProjectStaticParams;
 
-export function generateStaticParams() {
-  return projects.map(({ slug }) => ({ slug }));
-}
-
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: ProjectPageProps): Promise<Metadata> {
   const { slug } = await params;
   const project = getProjectBySlug(slug);
   if (!project) return {};
@@ -29,27 +27,16 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-function getSections({ problem, solution, results }: Project) {
-  return [
-    { title: "The problem", body: problem },
-    { title: "The solution", body: solution },
-    ...(results ? [{ title: "Results", body: results }] : []),
-  ];
-}
-
-export default async function ProjectPage({ params }: PageProps) {
+export default async function ProjectPage({ params }: ProjectPageProps) {
   const { slug } = await params;
   const project = getProjectBySlug(slug);
   if (!project) notFound();
 
-  const { title, summary, role, image, stack, links } = project;
+  const { title, summary, role, image, stack, links = [] } = project;
 
   return (
-    <div className="mx-auto max-w-3xl px-6 py-16">
-      <Link
-        href="/#projects"
-        className="font-mono text-sm text-muted transition hover:text-accent"
-      >
+    <article className="mx-auto max-w-3xl px-6 py-16">
+      <Link href="/#projects" className="font-mono text-sm text-muted transition hover:text-accent">
         ← back to projects
       </Link>
 
@@ -67,41 +54,31 @@ export default async function ProjectPage({ params }: PageProps) {
         className="mt-10 h-auto w-full rounded-2xl border border-border"
       />
 
-      <ul className="mt-8 flex flex-wrap gap-2">
-        {stack.map((tech) => (
-          <li
-            key={tech}
-            className="rounded-md border border-border bg-card px-3 py-1 font-mono text-xs text-muted"
-          >
-            {tech}
-          </li>
-        ))}
-      </ul>
+      <TagList items={stack} surface="solid" className="mt-8" />
 
       <div className="mt-12 space-y-10">
-        {getSections(project).map((section) => (
-          <section key={section.title}>
-            <h2 className="text-xl font-semibold">{section.title}</h2>
-            <p className="mt-3 leading-relaxed text-muted">{section.body}</p>
+        {getCaseStudySections(project).map(({ title: heading, body }) => (
+          <section key={heading}>
+            <h2 className="text-xl font-semibold">{heading}</h2>
+            <p className="mt-3 leading-relaxed text-muted">{body}</p>
           </section>
         ))}
       </div>
 
-      {links && links.length > 0 && (
+      {links.length > 0 && (
         <div className="mt-12 flex flex-wrap gap-4">
           {links.map(({ label, href }, index) => (
-            <a
+            <Button
               key={href}
               href={href}
-              target="_blank"
-              rel="noreferrer"
-              className={index === 0 ? primaryButton : secondaryButton}
+              variant={index === 0 ? "primary" : "secondary"}
+              {...EXTERNAL_LINK_PROPS}
             >
               {label}
-            </a>
+            </Button>
           ))}
         </div>
       )}
-    </div>
+    </article>
   );
 }

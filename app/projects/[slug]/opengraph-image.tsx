@@ -1,16 +1,16 @@
 import { notFound } from "next/navigation";
-import { getProjectBySlug, projects } from "@/data/projects";
-import { renderOgImage } from "@/lib/og";
+import { getProjectBySlug, getProjectStaticParams } from "@/data/projects";
+import { OG_IMAGE_CONTENT_TYPE, OG_IMAGE_SIZE, renderOgImage } from "@/lib/og";
 
 export const alt = "Project case study preview";
-export const size = { width: 1200, height: 630 };
-export const contentType = "image/png";
+export const size = OG_IMAGE_SIZE;
+export const contentType = OG_IMAGE_CONTENT_TYPE;
 
-export function generateStaticParams() {
-  return projects.map(({ slug }) => ({ slug }));
-}
+export const generateStaticParams = getProjectStaticParams;
 
-export default async function Image({ params }: { params: Promise<{ slug: string }> }) {
+type ProjectImageProps = Pick<PageProps<"/projects/[slug]">, "params">;
+
+export default async function Image({ params }: ProjectImageProps) {
   const { slug } = await params;
   const project = getProjectBySlug(slug);
   if (!project) notFound();

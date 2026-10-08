@@ -1,3 +1,5 @@
+import { isProduction } from "@/lib/env";
+
 export type ProjectLink = {
   label: string;
   href: string;
@@ -16,6 +18,7 @@ export type Project = {
   links?: ProjectLink[];
 };
 
+/** Adding a project here creates its card, case-study page, sitemap entry, and share image. */
 export const projects: Project[] = [
   {
     slug: "vr-science-laboratory",
@@ -34,17 +37,14 @@ export const projects: Project[] = [
   {
     slug: "developer-portfolio",
     title: "This Portfolio",
-    summary: "The site you're looking at, with a working inquiry form.",  
+    summary: "The site you're looking at, with a working inquiry form.",
     role: "Design and development",
-    stack: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
+    stack: ["Next.js", "TypeScript", "Tailwind CSS", "GSAP"],
     image: "/projects/webportfolio.png",
-    problem:
-      "I needed a place to present my work and let clients reach me directly.",
+    problem: "I needed a place to present my work and let clients reach me directly.",
     solution:
       "A dark-themed responsive site with animated sections and a server-side contact form that emails inquiries straight to my inbox.",
-    links: [
-      { label: "View on GitHub", href: "https://github.com/IvanRamiro/my-portfolio" },
-    ],
+    links: [{ label: "View on GitHub", href: "https://github.com/IvanRamiro/my-portfolio" }],
   },
 ];
 
@@ -52,7 +52,21 @@ export function getProjectBySlug(slug: string): Project | undefined {
   return projects.find((project) => project.slug === slug);
 }
 
-if (process.env.NODE_ENV !== "production") {
+/** For `generateStaticParams` in every route under `/projects/[slug]`. */
+export function getProjectStaticParams(): { slug: string }[] {
+  return projects.map(({ slug }) => ({ slug }));
+}
+
+/** Case-study sections in reading order; "Results" is only shown when provided. */
+export function getCaseStudySections({ problem, solution, results }: Project) {
+  return [
+    { title: "The problem", body: problem },
+    { title: "The solution", body: solution },
+    ...(results ? [{ title: "Results", body: results }] : []),
+  ];
+}
+
+if (!isProduction) {
   const slugs = projects.map((project) => project.slug);
   if (new Set(slugs).size !== slugs.length) {
     throw new Error("Duplicate project slug found in data/projects.ts");

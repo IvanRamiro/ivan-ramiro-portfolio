@@ -1,11 +1,11 @@
-import About from "@/components/About";
-import Contact from "@/components/Contact";
-import Hero from "@/components/Hero";
-import Projects from "@/components/Projects";
-import Services from "@/components/Services";
-import TechMarquee from "@/components/TechMarquee";
+import About from "@/components/sections/about/About";
+import Contact from "@/components/sections/contact/Contact";
+import Hero from "@/components/sections/hero/Hero";
+import Projects from "@/components/sections/projects/Projects";
+import Services from "@/components/sections/services/Services";
+import TechMarquee from "@/components/sections/TechMarquee";
 
-export default function Home() {
+export default function HomePage() {
   return (
     <>
       <Hero />

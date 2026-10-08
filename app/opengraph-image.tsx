@@ -1,9 +1,9 @@
-import { renderOgImage } from "@/lib/og";
+import { OG_IMAGE_CONTENT_TYPE, OG_IMAGE_SIZE, renderOgImage } from "@/lib/og";
 import { SITE } from "@/lib/site";
 
-export const alt = "Ivan Ramiro | Computer Engineer & Developer";
-export const size = { width: 1200, height: 630 };
-export const contentType = "image/png";
+export const alt = SITE.title;
+export const size = OG_IMAGE_SIZE;
+export const contentType = OG_IMAGE_CONTENT_TYPE;
 
 export default function Image() {
   return renderOgImage({

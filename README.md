@@ -19,14 +19,15 @@ My personal portfolio: an introduction, case studies of my projects, the service
 | Area | Tools |
 |---|---|
 | Framework | Next.js (App Router), React, TypeScript |
-| Styling and motion | Tailwind CSS, Framer Motion, React Icons |
+| Styling and motion | Tailwind CSS, GSAP, React Icons |
 | Database | Neon (Postgres), Drizzle ORM |
 | Validation and email | Zod, Resend |
 | Testing and CI | Playwright, GitHub Actions |
 
 ## Design decisions
 
-- **Content lives in data files.** Adding a project means adding one object to `data/projects.ts`, with no new page code.
+- **Content lives in data files.** Every piece of copy, from the hero roles to the skills and services, is in `data/`. Adding a project means adding one object to `data/projects.ts`, with no new page code.
+- **One animation library.** Scroll and pointer effects use GSAP; the hero card flip and other loops are plain CSS, so nothing else ships to the browser.
 - **Inquiries are never silently lost.** The form saves to the database and sends the email at the same time, so one failing doesn't lose the message.
 - **Visitor IPs are never stored.** Rate limiting keeps only a salted hash, which is enough to count repeat senders.
 - **Tests avoid side effects.** They check content, navigation, validation, and SEO files, and never send a real inquiry.
@@ -77,13 +78,20 @@ Open [http://localhost:3000](http://localhost:3000).
 ## Project structure
 
 ```
-app/            Routes, layout, and the contact form Server Action
-components/     Page sections and reusable UI
-data/           Project content
-db/             Database connection and schema
-lib/            Shared validation rules, rate limiting, and site settings
-public/         Images and the resume
-tests/          Playwright tests
+app/                  Routes, root layout, metadata, sitemap, and Open Graph images
+components/
+  layout/             Header, footer, background, scroll progress, skip link
+  motion/             GSAP primitives: Reveal, Parallax, Magnetic
+  ui/                 Reusable building blocks: Button, GlassCard, Section, TagList, ...
+  sections/           Home page sections, one folder per section
+  icons/              Custom SVG icons
+features/contact/     Contact form, Server Action, validation, rate limiting, storage, email
+data/                 All site content: projects, services, skills, socials, navigation
+db/                   Database connection and schema
+hooks/                Shared React hooks
+lib/                  Environment, theme tokens, CSS helpers, GSAP setup, site settings
+public/               Images and the resume
+tests/                Playwright tests
 ```
 
 ## Contact
