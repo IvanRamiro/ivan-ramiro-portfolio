@@ -16,6 +16,11 @@
   --animate-blink: blink 1s step-end infinite;
   --animate-drift: drift 24s ease-in-out infinite;
   --animate-float: float 5s ease-in-out infinite;
+  --animate-spin-3d: spin3d 14s linear infinite;
+  --animate-bars: bars 3.2s ease-in-out infinite alternate;
+  --animate-draw: draw 5s ease-in-out infinite;
+  --animate-ring: ring 5s ease-in-out infinite;
+  --animate-page-scroll: page-scroll 18s ease-in-out infinite;
 
   @keyframes marquee {
     from { transform: translateX(0); }
@@ -34,6 +39,34 @@
   @keyframes float {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-6px); }
+  }
+
+  /* Service mock-ups */
+  @keyframes spin3d {
+    from { transform: rotateX(-24deg) rotateY(0deg); }
+    to { transform: rotateX(-24deg) rotateY(360deg); }
+  }
+
+  @keyframes bars {
+    from { transform: scaleY(0.35); }
+    to { transform: scaleY(1); }
+  }
+
+  @keyframes draw {
+    0% { stroke-dashoffset: 1; }
+    60%, 100% { stroke-dashoffset: 0; }
+  }
+
+  @keyframes ring {
+    0% { stroke-dashoffset: 1; }
+    60%, 100% { stroke-dashoffset: 0.28; }
+  }
+
+  @keyframes page-scroll {
+    0%, 15% { transform: translateY(0); }
+    30%, 45% { transform: translateY(-33.333%); }
+    60%, 75% { transform: translateY(-66.666%); }
+    95%, 100% { transform: translateY(0); }
   }
 }
 
@@ -99,10 +132,17 @@ body {
   .animate-marquee,
   .animate-blink,
   .animate-drift,
-  .animate-float {
+  .animate-float,
+  .animate-spin-3d,
+  .animate-bars,
+  .animate-draw,
+  .animate-ring,
+  .animate-page-scroll {
     animation: none;
   }
 
+  /* Stop auto-scrolling, but let people swipe through the technologies
+     and hide the duplicate copy that only exists for the loop */
   .marquee {
     overflow-x: auto;
     scrollbar-width: thin;
