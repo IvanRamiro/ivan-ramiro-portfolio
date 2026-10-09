@@ -1,17 +1,10 @@
-import type { ComponentType } from "react";
-import MobileAppDemo from "@/components/sections/services/mockups/MobileAppDemo";
-import PlatformDemo from "@/components/sections/services/mockups/PlatformDemo";
-import WebsiteDemo from "@/components/sections/services/mockups/WebsiteDemo";
-import { COLORS } from "@/lib/theme";
+import type { MediaAsset } from "@/components/ui/Media";
 
 export type Service = {
   title: string;
   description: string;
   features: string[];
-  /** Tints the glow, the numbering, and the check marks */
-  color: string;
-  /** Animated mock-up shown beside the copy */
-  Demo: ComponentType;
+  art?: MediaAsset;
 };
 
 export const services: Service[] = [
@@ -24,8 +17,6 @@ export const services: Service[] = [
       "Scroll animations and 3D interactions",
       "SEO-ready and easy to update",
     ],
-    color: COLORS.accent,
-    Demo: WebsiteDemo,
   },
   {
     title: "Mobile app development",
@@ -35,8 +26,6 @@ export const services: Service[] = [
       "Smooth gestures and transitions",
       "Connected to your data and accounts",
     ],
-    color: COLORS.accentSecondary,
-    Demo: MobileAppDemo,
   },
   {
     title: "Custom platform development",
@@ -46,7 +35,5 @@ export const services: Service[] = [
       "One system that works on desktop and phone",
       "Built around how your team works",
     ],
-    color: "#34d399",
-    Demo: PlatformDemo,
   },
 ];

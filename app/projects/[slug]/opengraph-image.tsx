@@ -16,7 +16,7 @@ export default async function Image({ params }: ProjectImageProps) {
   if (!project) notFound();
 
   return renderOgImage({
-    eyebrow: project.role,
+    eyebrow: project.kind,
     title: project.title,
     subtitle: project.stack.join(" · "),
   });

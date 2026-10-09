@@ -7,7 +7,7 @@ My personal portfolio: an introduction, case studies of my projects, the service
 ## Features
 
 - **Project case studies:** every project in `data/projects.ts` gets its own page, with problem, solution, stack, and links
-- **Animated hero:** typewriter roles and a flip card that switches between code and the platforms I build for
+- **Spec-sheet hero:** a once-only GSAP load sequence, a pointer-tracking visual on desktop, and a factual spec table instead of invented stats
 - **Contact form:** Server Action with Zod validation, a honeypot field, and per-visitor rate limiting
 - **Inquiry storage:** each message is saved to Postgres and emailed to me; the visitor sees an error only if both fail
 - **SEO:** generated Open Graph images, sitemap, robots file, and per-page metadata
@@ -27,7 +27,9 @@ My personal portfolio: an introduction, case studies of my projects, the service
 ## Design decisions
 
 - **Content lives in data files.** Every piece of copy, from the hero roles to the skills and services, is in `data/`. Adding a project means adding one object to `data/projects.ts`, with no new page code.
-- **One animation library.** Scroll and pointer effects use GSAP; the hero card flip and other loops are plain CSS, so nothing else ships to the browser.
+- **One animation library.** Scroll reveals, the hero sequence, and the timeline use GSAP (with `gsap.matchMedia` for reduced motion and pointer gating); hover, press, and menu transitions are plain CSS.
+- **Design tokens live in CSS.** Colours, type roles, radii, easing, and durations are `@theme` tokens in `app/globals.css`; `lib/theme.ts` mirrors only the handful of values the Open Graph renderer needs.
+- **Hero video is a silent, lazy loop.** `public/art/hero-loop.{webm,mp4}` (no audio track) plays only while in view, never under reduced motion or Save-Data, and falls back to its poster frame. Service artwork is optional; the layout renders without it until renders are added to `public/art/`.
 - **Inquiries are never silently lost.** The form saves to the database and sends the email at the same time, so one failing doesn't lose the message.
 - **Visitor IPs are never stored.** Rate limiting keeps only a salted hash, which is enough to count repeat senders.
 - **Tests avoid side effects.** They check content, navigation, validation, and SEO files, and never send a real inquiry.
@@ -78,20 +80,19 @@ Open [http://localhost:3000](http://localhost:3000).
 ## Project structure
 
 ```
-app/                  Routes, root layout, metadata, sitemap, and Open Graph images
+app/                  Routes, root layout, 404, metadata, sitemap, and Open Graph images
 components/
-  layout/             Header, footer, background, scroll progress, skip link
-  motion/             GSAP primitives: Reveal, Parallax, Magnetic
-  ui/                 Reusable building blocks: Button, GlassCard, Section, TagList, ...
+  layout/             Header with active-section indicator, mobile menu, footer, skip link
+  motion/             GSAP primitives: Reveal, HeroSequence, PointerParallax
+  ui/                 Reusable building blocks: Button, Tile, Eyebrow, SpecTable, Media, Section, TagList
   sections/           Home page sections, one folder per section
-  icons/              Custom SVG icons
 features/contact/     Contact form, Server Action, validation, rate limiting, storage, email
-data/                 All site content: projects, services, skills, socials, navigation
+data/                 All site content: hero, projects, services, toolkit, about, socials, navigation
 db/                   Database connection and schema
 hooks/                Shared React hooks
-lib/                  Environment, theme tokens, CSS helpers, GSAP setup, site settings
-public/               Images and the resume
-tests/                Playwright tests
+lib/                  Environment, GSAP setup and motion tokens, CSS helpers, OG renderer, site settings
+public/               Images, the resume, and (once generated) artwork under public/art/
+tests/                Playwright tests (desktop Chrome and Pixel 7 projects)
 ```
 
 ## Contact

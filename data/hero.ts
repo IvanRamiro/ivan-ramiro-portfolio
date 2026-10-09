@@ -1,40 +1,27 @@
-import type { IconType } from "react-icons";
-import { FiGlobe, FiSmartphone } from "react-icons/fi";
-import { VrHeadsetIcon } from "@/components/icons/VrHeadsetIcon";
-import { COLORS } from "@/lib/theme";
+import type { LoopVideoAsset } from "@/components/ui/LoopVideo";
+import type { SpecRow } from "@/components/ui/SpecTable";
 
-/** Phrases cycled by the typewriter in the headline. */
-export const heroRoles = [
-  "Web Apps",
-  "Mobile Apps",
-  "IoT Systems",
-  "Custom Platforms",
-  "Admin Dashboards",
-  "VR Experiences",
-  "API Integrations",
-];
+export const heroEyebrow = "Computer engineer · Web · Mobile · VR";
+
+export const heroHeadline = {
+  lead: "Software built like hardware.",
+  support: "Web apps, mobile apps and VR simulations, engineered to ship.",
+} as const;
 
 export const heroIntro =
   "I turn ideas into fast, reliable software for businesses and teams, from first sketch to deployment.";
 
-/** Values rendered as a code snippet on the front of the hero card. */
-export const heroProfile = {
-  stack: ["Next.js", "TypeScript", "PostgreSQL", "PHP", "Unity"],
-  focus: "Web, Mobile & Game Development",
-  openToWork: true,
-} as const;
-
-export type Platform = {
-  label: string;
-  caption: string;
-  Icon: IconType;
-  /** Tints the tile and the icon glow */
-  color: string;
+export const heroLoop: LoopVideoAsset = {
+  webm: "/art/hero-loop.webm",
+  mp4: "/art/hero-loop.mp4",
+  poster: "/art/hero-poster.jpg",
+  width: 960,
+  height: 720,
 };
 
-/** Shown on the back of the hero card. */
-export const platforms: Platform[] = [
-  { label: "Websites", caption: "Sites & dashboards", Icon: FiGlobe, color: COLORS.accent },
-  { label: "Mobile", caption: "iOS & Android", Icon: FiSmartphone, color: COLORS.accentSecondary },
-  { label: "VR", caption: "Unity simulations", Icon: VrHeadsetIcon, color: "#f472b6" },
+export const specSheet: SpecRow[] = [
+  { label: "Role", value: "Computer Engineering graduate" },
+  { label: "Platforms", value: "Web · Mobile · VR" },
+  { label: "Focus", value: "Software, backend, networking & systems" },
+  { label: "Status", value: "Open to freelance & full-time" },
 ];

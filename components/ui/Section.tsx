@@ -1,21 +1,19 @@
 import type { ReactNode } from "react";
 import { cn } from "@/lib/css";
 
-/** Horizontal page container shared by the header, footer, and every section. */
-export const CONTAINER_CLASS = "mx-auto max-w-6xl px-6";
+export const CONTAINER_CLASS = "mx-auto w-full max-w-[1200px] px-5 sm:px-8 lg:px-12";
 
 type SectionProps = {
-  /** Anchor target for the navigation (`/#about`, ...) */
   id: string;
   children: ReactNode;
   className?: string;
+  containerClassName?: string;
 };
 
-/** A full-width home page section. `scroll-mt-20` keeps anchors clear of the sticky header. */
-export default function Section({ id, children, className }: SectionProps) {
+export default function Section({ id, children, className, containerClassName }: SectionProps) {
   return (
-    <section id={id} className={cn(CONTAINER_CLASS, "scroll-mt-20 py-24", className)}>
-      {children}
+    <section id={id} className={cn("scroll-mt-20 py-24 md:py-32 lg:py-40", className)}>
+      <div className={cn(CONTAINER_CLASS, containerClassName)}>{children}</div>
     </section>
   );
 }

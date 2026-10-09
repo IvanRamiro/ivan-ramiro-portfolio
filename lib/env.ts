@@ -20,7 +20,14 @@ export function requireEnv(name: string): string {
   return value;
 }
 
+function readPublicSiteUrl(): string {
+  const configured = optionalEnv("NEXT_PUBLIC_SITE_URL");
+  if (configured) return configured.replace(/\/$/, "");
+  if (isProduction && process.env.VERCEL_ENV === "production") {
+    throw new Error("NEXT_PUBLIC_SITE_URL must be set for production deployments.");
+  }
+  return "http://localhost:3000";
+}
+
 /** Public URL of the deployed site, without a trailing slash. */
-export const PUBLIC_SITE_URL = (
-  process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"
-).replace(/\/$/, "");
+export const PUBLIC_SITE_URL = readPublicSiteUrl();

@@ -1,16 +1,26 @@
+import { cn } from "@/lib/css";
+import Eyebrow from "./Eyebrow";
+
 type SectionHeadingProps = {
-  /** Small monospace eyebrow, e.g. "// 01 about" */
+  index: string;
   label: string;
   title: string;
   subtitle?: string;
+  className?: string;
 };
 
-export default function SectionHeading({ label, title, subtitle }: SectionHeadingProps) {
+export default function SectionHeading({
+  index,
+  label,
+  title,
+  subtitle,
+  className,
+}: SectionHeadingProps) {
   return (
-    <div>
-      <p className="font-mono text-sm text-accent">{label}</p>
-      <h2 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">{title}</h2>
-      {subtitle && <p className="mt-3 max-w-2xl text-muted">{subtitle}</p>}
+    <div className={cn("max-w-3xl", className)}>
+      <Eyebrow index={index}>{label}</Eyebrow>
+      <h2 className="mt-5 text-h2 font-semibold">{title}</h2>
+      {subtitle && <p className="mt-5 max-w-[60ch] text-lede text-ink-muted">{subtitle}</p>}
     </div>
   );
 }

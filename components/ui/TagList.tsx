@@ -1,30 +1,26 @@
 import { cn } from "@/lib/css";
 
 const SURFACES = {
-  /** Translucent, for tags sitting on glass cards */
-  glass: "border-white/10 bg-background/60",
-  /** Opaque, for tags on the page background */
-  solid: "border-border bg-card",
+  surface: "border-line bg-surface-1",
+  raised: "border-line bg-surface-2",
 } as const;
 
 const SIZES = {
   sm: "px-2 py-1",
-  md: "px-3 py-1",
+  md: "px-3 py-1.5",
 } as const;
 
 type TagListProps = {
   items: string[];
   surface?: keyof typeof SURFACES;
   size?: keyof typeof SIZES;
-  /** Extra classes for each tag, e.g. a hover effect */
   tagClassName?: string;
   className?: string;
 };
 
-/** A row of small monospace labels, used for tech stacks and skills. */
 export default function TagList({
   items,
-  surface = "glass",
+  surface = "raised",
   size = "md",
   tagClassName,
   className,
@@ -35,7 +31,7 @@ export default function TagList({
         <li
           key={item}
           className={cn(
-            "rounded-md border font-mono text-xs text-muted",
+            "rounded-chip border font-mono text-label normal-case tracking-normal text-ink-muted",
             SURFACES[surface],
             SIZES[size],
             tagClassName

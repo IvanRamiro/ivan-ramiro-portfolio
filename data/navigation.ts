@@ -1,14 +1,16 @@
 export type NavLink = {
   href: string;
   label: string;
+  sectionId: string;
 };
 
-/** Section links shown in the header. Hrefs start with "/" so they work from project pages too. */
 export const navLinks: NavLink[] = [
-  { href: "/#about", label: "About" },
-  { href: "/#projects", label: "Projects" },
-  { href: "/#services", label: "Services" },
-  { href: "/#contact", label: "Contact" },
+  { href: "/#projects", label: "Work", sectionId: "projects" },
+  { href: "/#about", label: "About", sectionId: "about" },
+  { href: "/#services", label: "Services", sectionId: "services" },
+  { href: "/#contact", label: "Contact", sectionId: "contact" },
 ];
 
-export const hireMeLink: NavLink = { href: "/#contact", label: "Hire me" };
+export const hireMeLink = { href: "/#contact", label: "Hire me" } as const;
+
+export const navSectionIds = navLinks.map((link) => link.sectionId);

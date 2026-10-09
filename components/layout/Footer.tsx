@@ -1,32 +1,32 @@
 import { CONTAINER_CLASS } from "@/components/ui/Section";
 import { socials } from "@/data/socials";
-import { cn, cssVar } from "@/lib/css";
+import { cn } from "@/lib/css";
 import { EXTERNAL_LINK_PROPS, SITE } from "@/lib/site";
+import FooterYear from "./FooterYear";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-white/10 bg-background/40 backdrop-blur-md">
+    <footer className="border-t border-line">
       <div
         className={cn(
           CONTAINER_CLASS,
-          "flex flex-wrap items-center justify-between gap-4 py-8 text-sm text-muted"
+          "flex flex-wrap items-center justify-between gap-x-8 gap-y-4 py-8 font-mono text-label normal-case tracking-normal text-ink-muted"
         )}
       >
         <p>
-          © {new Date().getFullYear()} {SITE.name}. Built with Next.js.
+          © <FooterYear /> {SITE.name} · Built with Next.js
         </p>
 
         <nav aria-label="Social links">
           <ul className="flex gap-6">
-            {socials.map(({ label, href, Icon, color, external }) => (
+            {socials.map(({ label, href, Icon, external }) => (
               <li key={label}>
                 <a
                   href={href}
                   {...(external && EXTERNAL_LINK_PROPS)}
-                  style={cssVar("--brand", color)}
-                  className="group flex items-center gap-2 transition hover:text-[var(--brand)]"
+                  className="flex items-center gap-2 transition-colors duration-(--dur-fast) hover:text-copper"
                 >
-                  <Icon aria-hidden="true" className="text-lg transition group-hover:scale-110" />
+                  <Icon aria-hidden="true" className="text-base" />
                   {label}
                 </a>
               </li>

@@ -1,162 +1,175 @@
 @import "tailwindcss";
 
-/* ---------- Design tokens ---------- */
-/* Edit these to re-theme the whole site. Each one becomes a Tailwind utility
-   (bg-card, text-muted, border-accent, ...). */
 @theme static {
-  --color-background: #0b0f19;
-  --color-foreground: #e6e9f0;
-  --color-muted: #94a3b8;
-  --color-card: #111827;
-  --color-border: #1f2937;
-  --color-accent: #38bdf8;
-  --color-accent-2: #a78bfa;
+  --color-ground: #0e0f11;
+  --color-surface-1: #15171a;
+  --color-surface-2: #1c1f23;
+  --color-line: rgb(255 255 255 / 0.08);
+  --color-line-strong: rgb(255 255 255 / 0.16);
+  --color-ink: #f2f1ed;
+  --color-ink-muted: #9c9c95;
+  --color-ink-faint: #86878d;
+  --color-copper: #e39b4f;
+  --color-copper-strong: #f2b46a;
+  --color-copper-ink: #1a1208;
+  --color-copper-muted: #2c1f0e;
+  --color-copper-field: #c97f35;
+  --color-ok: #8fd3a5;
+  --color-error: #f0907e;
 
-  --animate-marquee: marquee 35s linear infinite;
-  --animate-blink: blink 1s step-end infinite;
-  --animate-drift: drift 24s ease-in-out infinite;
-  --animate-float: float 5s ease-in-out infinite;
-  --animate-spin-3d: spin3d 14s linear infinite;
-  --animate-bars: bars 3.2s ease-in-out infinite alternate;
-  --animate-draw: draw 5s ease-in-out infinite;
-  --animate-ring: ring 5s ease-in-out infinite;
-  --animate-page-scroll: page-scroll 18s ease-in-out infinite;
-  --animate-slide-in: slide-in 0.3s ease-out both;
+  --text-display: clamp(2.75rem, 1.5rem + 5.5vw, 6rem);
+  --text-display--line-height: 0.98;
+  --text-display--letter-spacing: -0.03em;
+  --text-h2: clamp(2rem, 1.25rem + 3vw, 3.25rem);
+  --text-h2--line-height: 1.05;
+  --text-h2--letter-spacing: -0.02em;
+  --text-h3: 1.5rem;
+  --text-h3--line-height: 1.2;
+  --text-h3--letter-spacing: -0.01em;
+  --text-lede: 1.125rem;
+  --text-lede--line-height: 1.6;
+  --text-label: 0.75rem;
+  --text-label--line-height: 1;
+  --text-label--letter-spacing: 0.12em;
+  --text-data: 0.875rem;
+  --text-data--line-height: 1.5;
 
-  @keyframes marquee {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
-  }
+  --radius-tile: 1.5rem;
+  --radius-media: 1rem;
+  --radius-chip: 0.5rem;
 
-  @keyframes blink {
-    50% { opacity: 0; }
-  }
-
-  @keyframes drift {
-    0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
-    50% { transform: translate3d(4%, 6%, 0) scale(1.08); }
-  }
-
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-6px); }
-  }
-
-  /* Hero card code lines entering one after another (delay is set per line) */
-  @keyframes slide-in {
-    from { opacity: 0; transform: translateX(-8px); }
-    to { opacity: 1; transform: translateX(0); }
-  }
-
-  /* Service mock-ups */
-  @keyframes spin3d {
-    from { transform: rotateX(-24deg) rotateY(0deg); }
-    to { transform: rotateX(-24deg) rotateY(360deg); }
-  }
-
-  @keyframes bars {
-    from { transform: scaleY(0.35); }
-    to { transform: scaleY(1); }
-  }
-
-  @keyframes draw {
-    0% { stroke-dashoffset: 1; }
-    60%, 100% { stroke-dashoffset: 0; }
-  }
-
-  @keyframes ring {
-    0% { stroke-dashoffset: 1; }
-    60%, 100% { stroke-dashoffset: 0.28; }
-  }
-
-  @keyframes page-scroll {
-    0%, 15% { transform: translateY(0); }
-    30%, 45% { transform: translateY(-33.333%); }
-    60%, 75% { transform: translateY(-66.666%); }
-    95%, 100% { transform: translateY(0); }
-  }
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
 }
 
-/* Fonts come from next/font in layout.tsx, so they must stay "inline" */
 @theme inline {
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-bricolage);
 }
 
-/* ---------- Base ---------- */
+:root {
+  --dur-press: 160ms;
+  --dur-fast: 200ms;
+  --dur-base: 250ms;
+  --dur-slow: 400ms;
+  --dur-reveal: 500ms;
+  --dur-focal: 700ms;
+}
+
 html {
   scroll-behavior: smooth;
   color-scheme: dark;
 }
 
 body {
-  background: var(--color-background);
-  color: var(--color-foreground);
+  background: var(--color-ground);
+  color: var(--color-ink);
   font-family: var(--font-sans), system-ui, sans-serif;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display), var(--font-sans), system-ui, sans-serif;
+  text-wrap: balance;
 }
 
 ::selection {
-  background: var(--color-accent);
-  color: var(--color-background);
+  background: var(--color-copper);
+  color: var(--color-copper-ink);
 }
 
-/* ---------- Components ---------- */
-
-/* Pause the tech strip while hovering it */
-.marquee:hover .animate-marquee {
-  animation-play-state: paused;
+:focus-visible {
+  outline: 2px solid var(--color-copper);
+  outline-offset: 2px;
 }
 
-/* Faint grid, fading out toward the edges */
-.bg-grid {
-  background-image:
-    linear-gradient(to right, rgb(255 255 255 / 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgb(255 255 255 / 0.04) 1px, transparent 1px);
-  background-size: 48px 48px;
-  mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+.on-copper :focus-visible {
+  outline-color: var(--color-copper-ink);
 }
 
-/* Film grain: adds texture and hides gradient banding */
-.bg-noise {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+.on-ground :focus-visible {
+  outline-color: var(--color-copper);
 }
 
-/* Cursor-following glow for GlassCard (--x and --y are set from JavaScript) */
-.spotlight {
-  background: radial-gradient(
-    360px circle at var(--x, 50%) var(--y, 50%),
-    color-mix(in srgb, var(--color-accent) 16%, transparent),
-    transparent 70%
-  );
+html.js [data-reveal]:not([data-revealed]),
+html.js [data-reveal-group] > :not([data-revealed]),
+html.js [data-hero-sequence]:not([data-hero-played]) [data-hero] {
+  opacity: 0;
+  animation: reveal-safety 0s linear 3s forwards;
 }
 
-/* ---------- Accessibility ---------- */
+@keyframes reveal-safety {
+  to {
+    opacity: 1;
+  }
+}
+
+html:not(.js) [data-dot] {
+  border-color: var(--color-copper);
+}
+
+html:not(.js) [data-dot] > span {
+  background: var(--color-copper);
+}
+
+.menu-panel {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity var(--dur-base) var(--ease-out),
+    transform var(--dur-base) var(--ease-out);
+
+  @starting-style {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+
+.menu-panel [data-menu-item] {
+  animation: menu-item-in 300ms var(--ease-out) both;
+  animation-delay: calc(var(--menu-index, 0) * 40ms);
+}
+
+@keyframes menu-item-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.status-message {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity var(--dur-base) var(--ease-out),
+    transform var(--dur-base) var(--ease-out);
+
+  @starting-style {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
 
-  .animate-marquee,
-  .animate-blink,
-  .animate-drift,
-  .animate-float,
-  .animate-spin-3d,
-  .animate-bars,
-  .animate-draw,
-  .animate-ring,
-  .animate-page-scroll,
-  .animate-slide-in {
+  .menu-panel,
+  .status-message {
+    transition-property: opacity;
+    transform: none;
+  }
+
+  .menu-panel [data-menu-item] {
     animation: none;
-  }
-
-  /* Stop auto-scrolling, but let people swipe through the technologies
-     and hide the duplicate copy that only exists for the loop */
-  .marquee {
-    overflow-x: auto;
-    scrollbar-width: thin;
-  }
-
-  .marquee ul[aria-hidden="true"] {
-    display: none;
   }
 }

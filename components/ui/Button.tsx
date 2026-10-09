@@ -2,30 +2,37 @@ import type { AnchorHTMLAttributes, ButtonHTMLAttributes } from "react";
 import { cn } from "@/lib/css";
 
 const VARIANTS = {
-  /** Solid accent, fades slightly on hover */
-  primary: "bg-accent px-6 py-3 font-semibold text-background hover:opacity-90",
-  /** Solid accent that lights up on hover; for the main call to action of a section */
-  glow: "bg-accent px-6 py-3 font-semibold text-background hover:shadow-[0_0_28px_rgb(56_189_248/0.5)]",
-  /** Thin border that turns accent on hover */
-  secondary: "border border-border px-6 py-3 hover:border-accent hover:text-accent",
-  /** Accent outline that fills in on hover; used for the "Hire me" pill */
-  outline: "border border-accent/60 px-4 py-2 text-accent hover:bg-accent hover:text-background",
-  /** Frosted pill for low-emphasis actions */
-  glass:
-    "border border-white/15 bg-white/5 px-5 py-2 text-sm text-foreground backdrop-blur hover:border-accent hover:text-accent",
+  primary: "bg-copper text-copper-ink hover:bg-copper-strong",
+  secondary: "border border-line-strong text-ink hover:border-copper hover:text-copper",
+  ghost: "text-copper hover:text-copper-strong",
+} as const;
+
+const SIZES = {
+  md: "h-11 text-sm",
+  lg: "h-12 text-base",
+} as const;
+
+const PADDING = {
+  md: "px-5",
+  lg: "px-6",
 } as const;
 
 export type ButtonVariant = keyof typeof VARIANTS;
+export type ButtonSize = keyof typeof SIZES;
 
-/**
- * The classes alone, for elements that must stay a `next/link` or carry extra markup.
- * Display is left to the caller (`block`, `inline-block`) so flex and inline contexts both work.
- */
-export function buttonClasses(variant: ButtonVariant, className?: string): string {
-  return cn("rounded-lg transition", VARIANTS[variant], className);
+const BASE_CLASS =
+  "inline-flex items-center justify-center gap-2 rounded-full font-medium whitespace-nowrap transition-[transform,background-color,color,border-color] duration-(--dur-press) ease-out active:scale-[0.97] motion-reduce:active:scale-100 disabled:pointer-events-none disabled:opacity-50";
+
+export function buttonClasses(
+  variant: ButtonVariant,
+  className?: string,
+  size: ButtonSize = "md"
+): string {
+  const padding = variant === "ghost" ? undefined : PADDING[size];
+  return cn(BASE_CLASS, SIZES[size], padding, VARIANTS[variant], className);
 }
 
-type SharedProps = { variant?: ButtonVariant; className?: string };
+type SharedProps = { variant?: ButtonVariant; size?: ButtonSize; className?: string };
 
 type LinkButtonProps = SharedProps &
   AnchorHTMLAttributes<HTMLAnchorElement> & { href: string };
@@ -35,13 +42,13 @@ type NativeButtonProps = SharedProps &
 
 export type ButtonProps = LinkButtonProps | NativeButtonProps;
 
-/**
- * Renders an `<a>` when given `href`, otherwise a `<button>`.
- * Plain anchors are used on purpose: these point at same-page sections and
- * downloads, which `next/link` would try to handle as client navigations.
- */
-export default function Button({ variant = "primary", className, ...props }: ButtonProps) {
-  const classes = buttonClasses(variant, className);
+export default function Button({
+  variant = "primary",
+  size = "md",
+  className,
+  ...props
+}: ButtonProps) {
+  const classes = buttonClasses(variant, className, size);
 
   if (props.href !== undefined) {
     return <a {...props} className={classes} />;

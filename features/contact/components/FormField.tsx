@@ -1,7 +1,7 @@
 import type { InputHTMLAttributes, TextareaHTMLAttributes } from "react";
 
 const INPUT_CLASS =
-  "mt-1 w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-foreground outline-none backdrop-blur transition placeholder:text-muted/60 hover:border-white/20 focus:border-accent focus:bg-white/10 focus:ring-2 focus:ring-accent/30";
+  "mt-2 w-full rounded-chip border border-line bg-surface-2 px-4 py-3 text-ink outline-none transition-[border-color,background-color] duration-(--dur-fast) placeholder:text-ink-faint hover:border-line-strong focus:border-copper focus:bg-surface-1 focus-visible:outline-none";
 
 type SharedProps = {
   name: string;
@@ -24,18 +24,20 @@ type TextareaFieldProps = SharedProps & {
 
 export type FormFieldProps = InputFieldProps | TextareaFieldProps;
 
-/** A labelled, required input or textarea. The `name` doubles as the element id. */
 export default function FormField(props: FormFieldProps) {
   const { name, label, maxLength, placeholder, defaultValue } = props;
   const shared = { id: name, name, required: true, maxLength, placeholder, defaultValue };
 
   return (
     <div>
-      <label htmlFor={name} className="text-sm font-medium">
+      <label
+        htmlFor={name}
+        className="font-mono text-label uppercase tracking-[0.12em] text-ink-muted"
+      >
         {label}
       </label>
       {props.multiline ? (
-        <textarea {...shared} rows={props.rows ?? 5} className={INPUT_CLASS} />
+        <textarea {...shared} rows={props.rows ?? 6} className={INPUT_CLASS} />
       ) : (
         <input
           {...shared}

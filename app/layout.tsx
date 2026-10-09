@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import AuroraBackground from "@/components/layout/AuroraBackground";
+import { Bricolage_Grotesque, Geist, Geist_Mono } from "next/font/google";
 import Footer from "@/components/layout/Footer";
 import Navbar from "@/components/layout/Navbar";
-import ScrollProgress from "@/components/layout/ScrollProgress";
 import SkipLink, { MAIN_CONTENT_ID } from "@/components/layout/SkipLink";
 import { SITE } from "@/lib/site";
 import "./globals.css";
@@ -18,6 +16,14 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const bricolage = Bricolage_Grotesque({
+  variable: "--font-bricolage",
+  subsets: ["latin"],
+  axes: ["opsz"],
+});
+
+const ENABLE_JS_FLAG = "document.documentElement.classList.add('js')";
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
@@ -25,6 +31,7 @@ export const metadata: Metadata = {
     template: `%s | ${SITE.name}`,
   },
   description: SITE.description,
+  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     siteName: SITE.name,
@@ -43,12 +50,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="en"
       data-scroll-behavior="smooth"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      suppressHydrationWarning
+      className={`${geistSans.variable} ${geistMono.variable} ${bricolage.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
+        <script dangerouslySetInnerHTML={{ __html: ENABLE_JS_FLAG }} />
         <SkipLink />
-        <AuroraBackground />
-        <ScrollProgress />
         <Navbar />
         <main id={MAIN_CONTENT_ID} className="flex-1">
           {children}

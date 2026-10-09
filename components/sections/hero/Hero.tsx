@@ -1,55 +1,60 @@
+import HeroSequence from "@/components/motion/HeroSequence";
 import Button from "@/components/ui/Button";
+import Eyebrow from "@/components/ui/Eyebrow";
 import { CONTAINER_CLASS } from "@/components/ui/Section";
-import { heroIntro, heroRoles } from "@/data/hero";
+import { heroEyebrow, heroHeadline, heroIntro } from "@/data/hero";
 import { cn } from "@/lib/css";
-import { SITE } from "@/lib/site";
-import HeroCard from "./HeroCard";
-import Typewriter from "./Typewriter";
-import ViewfinderFrame from "./ViewfinderFrame";
+import HeroVisual from "./HeroVisual";
+import SpecSheet from "./SpecSheet";
 
 export default function Hero() {
   return (
-    <section className="relative isolate overflow-hidden">
-      {/* Background glow + grid (decorative) */}
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute -top-32 left-1/4 size-120 rounded-full bg-accent/20 blur-3xl" />
-        <div className="absolute -right-24 top-32 size-96 rounded-full bg-accent-2/20 blur-3xl" />
-        <div className="bg-grid absolute inset-0" />
-      </div>
+    <section aria-labelledby="hero-heading">
+      <HeroSequence>
+        <div
+          className={cn(
+            CONTAINER_CLASS,
+            "grid gap-12 pt-14 pb-16 lg:grid-cols-12 lg:items-center lg:gap-10 lg:pt-24 lg:pb-24"
+          )}
+        >
+          <div className="lg:col-span-7">
+            <div data-hero="line">
+              <Eyebrow index="00">{heroEyebrow}</Eyebrow>
+            </div>
 
-      <div
-        className={cn(CONTAINER_CLASS, "grid items-center gap-12 py-24 lg:grid-cols-2 lg:py-32")}
-      >
-        <div>
-          <p className="font-mono text-sm text-accent">Hello, world! I&apos;m {SITE.name}</p>
-
-          <h1 className="mt-4 text-4xl font-bold leading-tight tracking-tight sm:text-6xl">
-            {SITE.role} building
-            {/* Screen readers get the full list once, not every typed letter */}
-            <span className="sr-only">: {heroRoles.join(", ")}</span>
-            <span
-              aria-hidden="true"
-              className="block min-h-[1.2em] bg-linear-to-r from-accent to-accent-2 bg-clip-text text-transparent"
+            <h1 id="hero-heading" data-hero="line" className="mt-8 text-display font-semibold">
+              {heroHeadline.lead}
+            </h1>
+            <p
+              data-hero="line"
+              className="mt-5 max-w-[30ch] font-display text-[1.375rem] leading-snug font-medium tracking-[-0.01em] text-ink-muted sm:text-2xl lg:text-[1.75rem]"
             >
-              <Typewriter words={heroRoles} />
-              <span className="animate-blink ml-1 inline-block h-[0.9em] w-[3px] translate-y-[0.1em] bg-accent" />
-            </span>
-          </h1>
+              {heroHeadline.support}
+            </p>
 
-          <p className="mt-6 max-w-xl text-lg text-muted">{heroIntro}</p>
+            <p data-hero="copy" className="mt-8 max-w-[52ch] text-lede text-ink-muted">
+              {heroIntro}
+            </p>
 
-          <div className="mt-8 flex flex-wrap gap-4">
-            <Button href="#projects">View my work</Button>
-            <Button href="#contact" variant="secondary">
-              Get in touch
-            </Button>
+            <div data-hero="copy" className="mt-10 flex flex-wrap gap-3">
+              <Button href="#projects" size="lg">
+                View work
+              </Button>
+              <Button href="#contact" variant="secondary" size="lg">
+                Get in touch
+              </Button>
+            </div>
+          </div>
+
+          <div className="lg:col-span-5">
+            <HeroVisual />
           </div>
         </div>
 
-        <ViewfinderFrame>
-          <HeroCard />
-        </ViewfinderFrame>
-      </div>
+        <div className={cn(CONTAINER_CLASS, "pb-6")}>
+          <SpecSheet />
+        </div>
+      </HeroSequence>
     </section>
   );
 }
