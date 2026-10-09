@@ -21,7 +21,7 @@ export const heroLoop: LoopVideoAsset = {
 
 export const specSheet: SpecRow[] = [
   { label: "Role", value: "Computer Engineering graduate" },
-  { label: "Platforms", value: "Web · Mobile · VR" },
+  { label: "Platforms", value: "Web · Mobile · Custom Platforms" },
   { label: "Focus", value: "Software, backend, networking & systems" },
   { label: "Status", value: "Open to freelance & full-time" },
 ];
