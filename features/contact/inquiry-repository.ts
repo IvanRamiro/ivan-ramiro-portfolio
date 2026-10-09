@@ -3,8 +3,6 @@ import { getDb } from "@/db";
 import { inquiries } from "@/db/schema";
 import type { ContactValues } from "./schema";
 
-/** Data access for the `inquiries` table. Callers decide how to handle failures. */
-
 export async function saveInquiry(values: ContactValues, ipHash: string | null): Promise<void> {
   await getDb().insert(inquiries).values({ ...values, ipHash });
 }

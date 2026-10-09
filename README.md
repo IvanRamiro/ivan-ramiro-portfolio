@@ -1,6 +1,6 @@
 # Ivan Ramiro | Developer Portfolio
 
-![CI](https://github.com/IvanRamiro/my-portfolio/actions/workflows/ci.yml/badge.svg)
+![CI](https://github.com/IvanRamiro/ivan-ramiro-portfolio/actions/workflows/ci.yml/badge.svg)
 
 My personal portfolio: an introduction, case studies of my projects, the services I offer, and a contact form that saves and emails every inquiry.
 
@@ -39,8 +39,8 @@ My personal portfolio: an introduction, case studies of my projects, the service
 Requirements: Node.js 22 and a Neon Postgres database.
 
 ```bash
-git clone https://github.com/IvanRamiro/my-portfolio.git
-cd my-portfolio
+git clone https://github.com/IvanRamiro/ivan-ramiro-portfolio.git
+cd ivan-ramiro-portfolio
 npm install
 ```
 

@@ -32,6 +32,7 @@ export default function ProjectPlate({ project, index }: ProjectPlateProps) {
           width={1600}
           height={1000}
           sizes="(min-width: 1024px) 58vw, 100vw"
+          eager
           className="transition-colors duration-(--dur-fast) group-hover:border-line-strong"
           imageClassName="transition-transform duration-(--dur-reveal) ease-out group-hover:scale-[1.03] motion-reduce:transition-none"
         />

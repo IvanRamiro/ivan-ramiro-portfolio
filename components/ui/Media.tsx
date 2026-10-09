@@ -16,7 +16,8 @@ type MediaProps = {
   width: number;
   height: number;
   sizes: string;
-  priority?: boolean;
+  preload?: boolean;
+  eager?: boolean;
   backdrop?: string;
   className?: string;
   imageClassName?: string;
@@ -27,7 +28,8 @@ export default function Media({
   width,
   height,
   sizes,
-  priority = false,
+  preload = false,
+  eager = false,
   backdrop,
   className,
   imageClassName,
@@ -59,8 +61,9 @@ export default function Media({
           width={frameWidth}
           height={frameHeight}
           sizes={sizes}
-          priority={priority}
-          fetchPriority={priority ? "high" : undefined}
+          preload={preload}
+          loading={preload || eager ? "eager" : undefined}
+          fetchPriority={preload ? "high" : undefined}
           className={cn("relative size-full object-cover", imageClassName)}
         />
       ) : (

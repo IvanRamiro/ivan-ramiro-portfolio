@@ -95,7 +95,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         width={2400}
         height={1500}
         sizes="(min-width: 1280px) 1200px, 100vw"
-        priority
+        preload
         className="mt-14"
       />
 

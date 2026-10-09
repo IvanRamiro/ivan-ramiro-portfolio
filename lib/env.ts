@@ -23,8 +23,14 @@ export function requireEnv(name: string): string {
 function readPublicSiteUrl(): string {
   const configured = optionalEnv("NEXT_PUBLIC_SITE_URL");
   if (configured) return configured.replace(/\/$/, "");
+
+  const vercelProductionHost = optionalEnv("VERCEL_PROJECT_PRODUCTION_URL");
+  if (vercelProductionHost) return `https://${vercelProductionHost}`;
+
   if (isProduction && process.env.VERCEL_ENV === "production") {
-    throw new Error("NEXT_PUBLIC_SITE_URL must be set for production deployments.");
+    throw new Error(
+      "Set NEXT_PUBLIC_SITE_URL (or expose Vercel system environment variables) for production deployments."
+    );
   }
   return "http://localhost:3000";
 }

@@ -56,13 +56,13 @@ export const projects: Project[] = [
     image: {
       src: "/projects/webportfolio.png",
       alt: "Screenshot of this portfolio's home page",
-      width: 2366,
-      height: 1268,
+      width: 2910,
+      height: 1668,
     },
     problem: "I needed a place to present my work and let clients reach me directly.",
     solution:
       "A responsive site with a server-side contact form that validates input, rate-limits repeat senders, saves every inquiry to Postgres, and emails it straight to my inbox. Lint, type checks, and Playwright tests run on every push.",
-    links: [{ label: "View on GitHub", href: "https://github.com/IvanRamiro/my-portfolio" }],
+    links: [{ label: "View on GitHub", href: "https://github.com/IvanRamiro/ivan-ramiro-portfolio" }],
   },
 ];
 
